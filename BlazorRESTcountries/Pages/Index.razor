@@ -1,3 +1,24 @@
 ﻿@page "/"
+@inject IRESTConuntriesServiceV2 restCountries
 
 <h1>Hello, world!</h1>
+
+@if (countriesList.Count >  0)
+{
+    @foreach (var countrey in countriesList)
+    {
+        <div>
+            @countrey.name
+        </div>
+    }
+}
+
+@code{
+
+    List<CountreyV2> countriesList = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        countriesList = await restCountries.GetAllCountries();
+    }
+}
