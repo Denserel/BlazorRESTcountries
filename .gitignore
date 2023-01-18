@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/BlazorRESTcountries/wwwroot/design
+/BlazorRESTcountries/wwwroot/README.md
+/BlazorRESTcountries/wwwroot/style-guide.md
