@@ -1,3 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap');
+
+/* RESET */
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+input,
+button,
+textarea {
+    font: inherit;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+/* VARIABLES */
+
+:root {
+    /* Font and Topography */
+    --FONT-FAMELY: 'Nunito Sans', sans-serif;
+    /* Colour */
+    --BACKGROUND-COLOUR: hsl(0, 0%, 98%);
+    --TEXT-COLOUR: hsl(200, 15%, 8%);
+}
+
+body {
+    font-family: var(--FONT-FAMELY);
+    background-color: var(--BACKGROUND-COLOUR);
+    color: var(--TEXT-COLOUR);
+}
+
+.dark-mode {
+    --BACKGROUND-COLOUR: hsl(207, 26%, 17%);
+    --TEXT-COLOUR: hsl(0, 0%, 100%);
+}
+
+button {
+    border: none;
+    color: var(--TEXT-COLOUR);
+    background-color: var(--BACKGROUND-COLOUR);
+}
+
+/* Blasor stuff */
+
 h1:focus {
     outline: none;
 }

@@ -6,9 +6,9 @@
     <title>BlazorRESTcountries</title>
     <base href="/" />
     <link href="css/app.css" rel="stylesheet" />
-    
     <!-- If you add any scoped CSS files, uncomment the following to load them
     <link href="BlazorRESTcountries.styles.css" rel="stylesheet" /> -->
+    <script src="https://kit.fontawesome.com/a09830b4f6.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -20,6 +20,11 @@
         <a class="dismiss">🗙</a>
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script>
+        window.darkmode = () => {
+            document.body.classList.toggle('dark-mode');
+        };
+    </script>
 </body>
 
 </html>
