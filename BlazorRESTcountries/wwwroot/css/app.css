@@ -35,8 +35,10 @@ li {
     /* Font and Topography */
     --FONT-FAMELY: 'Nunito Sans', sans-serif;
     /* Colour */
-    --BACKGROUND-COLOUR: hsl(0, 0%, 98%);
-    --TEXT-COLOUR: hsl(200, 15%, 8%);
+    --BACKGROUND-COLOUR: hsla(0, 0%, 98%, 1);
+    --TEXT-COLOUR: hsla(200, 15%, 8%, 1);
+    --ELEMNET-COLOUR: hsla(0, 0%, 98%, 1);
+    --SHADOW-COLOUR: hsla(0, 0%, 50%, 0.3);
 }
 
 body {
@@ -46,18 +48,39 @@ body {
 }
 
 .dark-mode {
-    --BACKGROUND-COLOUR: hsl(207, 26%, 17%);
-    --TEXT-COLOUR: hsl(0, 0%, 100%);
+    --BACKGROUND-COLOUR: hsla(207, 26%, 17%, 1);
+    --TEXT-COLOUR: hsla(0, 0%, 100%, 1);
+    --ELEMNET-COLOUR: hsla(209, 23%, 22%, 1);
+    --SHADOW-COLOUR: hsla(0, 0%, 0%, 0.5);
 }
 
 button {
     border: none;
     color: var(--TEXT-COLOUR);
-    background-color: var(--BACKGROUND-COLOUR);
+    background-color: var(--ELEMNET-COLOUR);
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 4rem;
+    margin: 0 0 1rem 0;
+    box-shadow: 0px 2px 5px var(--SHADOW-COLOUR);
+    background-color: var(--ELEMNET-COLOUR);
+}
+
+.header__logo {
+    font-size: 2rem;
+    font-weight:900;
+}
+
+.header__toggle-darl-mode{
+    font-size: 1.5rem;
+    cursor: pointer;
 }
 
 /* Blasor stuff */
-
 h1:focus {
     outline: none;
 }
