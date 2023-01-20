@@ -90,6 +90,7 @@ b {
 .filter-section {
     display: flex;
     justify-content: space-between;
+    padding: 4rem;
 }
 
 .countries-section {
