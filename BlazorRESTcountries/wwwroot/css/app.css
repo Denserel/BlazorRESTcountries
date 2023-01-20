@@ -11,13 +11,16 @@
 
 img {
     display: block;
-    max-width: 100%;
+    width: 100%;
     height: auto;
 }
 
 input,
 button,
-textarea {
+textarea,
+input,
+select,
+option {
     font: inherit;
 }
 
@@ -37,7 +40,7 @@ li {
     /* Colour */
     --BACKGROUND-COLOUR: hsla(0, 0%, 98%, 1);
     --TEXT-COLOUR: hsla(200, 15%, 8%, 1);
-    --ELEMNET-COLOUR: hsla(0, 0%, 98%, 1);
+    --ELEMNET-COLOUR: hsla(0, 0%, 100%, 1);
     --SHADOW-COLOUR: hsla(0, 0%, 50%, 0.3);
 }
 
@@ -54,10 +57,14 @@ body {
     --SHADOW-COLOUR: hsla(0, 0%, 0%, 0.5);
 }
 
-button {
+button, input, select {
     border: none;
     color: var(--TEXT-COLOUR);
     background-color: var(--ELEMNET-COLOUR);
+}
+
+b {
+    font-weight: 600;
 }
 
 /* HEADER */
@@ -72,14 +79,46 @@ button {
 
 .header__logo {
     font-size: 2rem;
-    font-weight:900;
+    font-weight: 900;
 }
 
-.header__toggle-darl-mode{
+.header__toggle-darl-mode {
     font-size: 1.5rem;
     cursor: pointer;
 }
 
+.filter-section {
+    display: flex;
+    justify-content: space-between;
+}
+
+.countries-section {
+    display: grid;
+    gap: 4rem;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 4rem;
+}
+
+.countries-section__card {
+    color: var(--TEXT-COLOUR);
+    background-color: var(--ELEMNET-COLOUR);
+}
+
+.countries-section__card-flag {
+    height: 200px;
+}
+
+.countries-section__card-info {
+    padding: 2rem;
+}
+
+    .countries-section__card-info h2 {
+        margin-bottom: 1rem;
+    }
+
+    .countries-section__card-info p {
+        margin-bottom: .3rem;
+    }
 /* Blasor stuff */
 h1:focus {
     outline: none;
