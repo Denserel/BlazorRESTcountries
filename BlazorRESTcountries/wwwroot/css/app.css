@@ -67,36 +67,45 @@ b {
     font-weight: 600;
 }
 
+.element-shadow {
+    box-shadow: 0px 2px 8px 1px var(--SHADOW-COLOUR);
+}
+
 /* HEADER */
 .header {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    padding: 1rem 4rem;
+    padding: 1.5rem 1rem;
     margin: 0 0 1rem 0;
     box-shadow: 0px 2px 5px var(--SHADOW-COLOUR);
     background-color: var(--ELEMNET-COLOUR);
 }
 
 .header__logo {
-    font-size: 2rem;
+    font-size: clamp(1.2rem, 5vw, 2rem );
     font-weight: 900;
 }
 
 .header__toggle-darl-mode {
-    font-size: 1.5rem;
+    font-size: clamp(1.2rem, 5vw, 1.6rem );
     cursor: pointer;
 }
 
+/* INDEX */
+
 .filter-section {
     display: flex;
-    justify-content: space-between;
-    padding: 4rem;
+    gap: 2rem;
+    flex-direction: column;
+    padding: 1rem;
 }
 
 .countries-section {
     display: grid;
-    gap: 4rem;
-    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+    justify-content: center;
+    grid-template-columns: repeat(1, minmax(257px, 320px));
     padding: 4rem;
 }
 
@@ -106,7 +115,7 @@ b {
 }
 
 .countries-section__card-flag {
-    height: 200px;
+    height: clamp(180px, 45vw, 200px);
 }
 
 .countries-section__card-info {
@@ -114,12 +123,41 @@ b {
 }
 
     .countries-section__card-info h2 {
+        font-size: clamp(1.2rem, 5vw, 1.6rem );
         margin-bottom: 1rem;
     }
 
     .countries-section__card-info p {
         margin-bottom: .3rem;
     }
+
+
+@media screen and (min-width: 720px) {
+    .filter-section {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 4rem;
+    }
+
+    .countries-section {
+        
+        grid-template-columns: repeat(2, minmax(257px, 320px));
+        
+    }
+}
+
+@media screen and (min-width: 1080px) {
+    .countries-section {
+        grid-template-columns: repeat(3, minmax(257px, 320px));
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .countries-section {
+        grid-template-columns: repeat(4, minmax(257px, 320px));
+    }
+}
+
 /* Blasor stuff */
 h1:focus {
     outline: none;

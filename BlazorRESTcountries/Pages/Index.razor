@@ -2,8 +2,8 @@
 @inject IRESTConuntriesServiceV2 restCountries
 
 <section class="filter-section">
-    <input placeholder="Search for a country" />
-    <select title="Filter by region">
+    <input class="element-shadow" placeholder="Search for a country" />
+    <select class="element-shadow" title="Filter by region">
         <option value="" disabled selected hidden>Filet by region</option>
 
     </select>
@@ -24,7 +24,7 @@
 
     @foreach (var country in countriesList)
     {
-        <article class="countries-section__card">
+        <article class="countries-section__card element-shadow">
             <img class="countries-section__card-flag" src="@country.flags.png" alt="@country.demonym flag">
             <div class="countries-section__card-info">
                 <h2>@country.name</h2>
