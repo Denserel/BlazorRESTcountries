@@ -1,0 +1,20 @@
+﻿@inherits TestContext
+
+@code {
+    [Fact]
+    public void ComponentRendersCorrectlyOnInit()
+    {
+        var cut = RenderComponent<NavMenu>();
+
+        cut.MarkupMatches(
+        @<text>
+            <header class="header">
+                <p class="header__logo">Hello world!</p>
+                <button class="header__toggle-darl-mode" aria-label="toggle dark mode" title="Toggle dark mode">
+                <i class="fa-solid fa-moon"></i>
+                </button>
+            </header>
+        </text>
+        );
+    }
+}

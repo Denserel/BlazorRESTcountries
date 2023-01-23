@@ -2,10 +2,13 @@
 @inject IRESTConuntriesServiceV2 restCountries
 
 <section class="filter-section">
-    <input class="element-shadow" placeholder="Search for a country" />
+    <input class="element-shadow" type="search" placeholder="Search for a country..." />
     <select class="element-shadow" title="Filter by region">
         <option value="" disabled selected hidden>Filet by region</option>
-
+        @foreach (var regoin in regions)
+        {
+            <option value="@regoin">@regoin</option>
+        }
     </select>
 </section>
 
@@ -40,9 +43,16 @@
 @code {
 
     List<CountreyV2> countriesList = new();
+    List<string> regions = new();
 
     protected override async Task OnInitializedAsync()
     {
         countriesList = await restCountries.GetAllCountries();
+        GetRegions();
+    }
+
+    private void GetRegions()
+    {
+        regions = countriesList.Select(country => country.region).Distinct().ToList();
     }
 }

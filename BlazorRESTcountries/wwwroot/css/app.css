@@ -100,6 +100,14 @@ b {
     flex-direction: column;
     padding: 1rem;
 }
+    .filter-section input, 
+    .filter-section select{
+        padding: 1rem;
+    }
+
+    .filter-section select {
+        width: 50%;
+    }
 
 .countries-section {
     display: grid;
@@ -138,6 +146,10 @@ b {
         justify-content: space-between;
         padding: 4rem;
     }
+
+        .filter-section select {
+            width: auto;
+        }
 
     .countries-section {
         
