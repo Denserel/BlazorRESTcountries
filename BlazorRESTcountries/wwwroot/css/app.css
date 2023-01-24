@@ -87,7 +87,7 @@ b {
     font-weight: 900;
 }
 
-.header__toggle-darl-mode {
+.header__toggle-dark-mode {
     font-size: clamp(1.2rem, 5vw, 1.6rem );
     cursor: pointer;
 }

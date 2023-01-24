@@ -10,11 +10,23 @@
         @<text>
             <header class="header">
                 <p class="header__logo">Hello world!</p>
-                <button class="header__toggle-darl-mode" aria-label="toggle dark mode" title="Toggle dark mode">
-                <i class="fa-solid fa-moon"></i>
+                <button class="header__toggle-dark-mode" aria-label="toggle dark mode" title="Toggle dark mode">
+                    <i class="fa-solid fa-moon"></i>
                 </button>
             </header>
         </text>
-        );
+    );
+    }
+
+    [Fact]
+    public void ToggleDarkModeChangeIconOnClick()
+    {
+        var cut = RenderComponent<NavMenu>();
+        var plannedInvocation = JSInterop.SetupVoid("darkmode");
+
+        cut.Find("button").Click();
+        plannedInvocation.SetVoidResult();
+
+        cut.Find("i").MarkupMatches(@<i class="fa-solid fa-sun"></i>);
     }
 }

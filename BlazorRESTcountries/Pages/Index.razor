@@ -13,18 +13,6 @@
 </section>
 
 <section class="countries-section">
-    @*<Virtualize Items="@countriesList" Context="country">
-        <article class="countries-section__card">
-            <img class="countries-section__card-flag" src="@country.flag" alt="@country.demonym flag">
-            <div class="countries-section__card-info">
-                <h2>@country.name</h2>
-                <p><b>Population:</b> @country.population</p>
-                <p><b>Region:</b> @country.region</p>
-                <p><b>Capital:</b> @country.capital</p>
-            </div>
-        </article>
-    </Virtualize>*@
-
     @foreach (var country in countriesList)
     {
         <article class="countries-section__card element-shadow">
