@@ -1,10 +1,17 @@
 ﻿@page "/"
 @inject IRESTConuntriesServiceV2 restCountries
+@inject NavigationManager NavigationManager
 
 <section class="filter-section">
-    <input class="element-shadow" type="search" placeholder="Search for a country..." />
-    <select class="element-shadow" title="Filter by region">
-        <option value="" disabled selected hidden>Filet by region</option>
+    <input class="element-shadow"
+           type="search"
+           placeholder="Search for a country..."
+           @oninput="SearchCoutry"
+            />
+    <select class="element-shadow" 
+            title="Filter by region"
+            @onchange="SelectRegion">
+        <option value="" selected>Filter by region</option>
         @foreach (var regoin in regions)
         {
             <option value="@regoin">@regoin</option>
@@ -13,9 +20,9 @@
 </section>
 
 <section class="countries-section">
-    @foreach (var country in countriesList)
+    @foreach (var country in filterCountryList)
     {
-        <article class="countries-section__card element-shadow">
+        <article class="countries-section__card element-shadow" @onclick="() => NavigateToCountry(country.name)">
             <img class="countries-section__card-flag" src="@country.flags.png" alt="@country.demonym flag">
             <div class="countries-section__card-info">
                 <h2>@country.name</h2>
@@ -31,16 +38,26 @@
 @code {
 
     List<CountreyV2> countriesList = new();
-    List<string> regions = new();
+    List<CountreyV2> filterCountryList = new(); 
+    List<string> regions => countriesList.Select(country => country.region).Distinct().ToList();
 
     protected override async Task OnInitializedAsync()
     {
-        countriesList = await restCountries.GetAllCountries();
-        GetRegions();
+       filterCountryList = countriesList = await restCountries.GetAllCountries();
     }
 
-    private void GetRegions()
+    private void NavigateToCountry (string countryName)
     {
-        regions = countriesList.Select(country => country.region).Distinct().ToList();
+        NavigationManager.NavigateTo($"country/{countryName}");
+    }
+
+    private void SearchCoutry(ChangeEventArgs e)
+    {
+        filterCountryList = countriesList.Where(country => country.name.Contains((string)e.Value, StringComparison.OrdinalIgnoreCase)).ToList();
+    }
+
+    private void SelectRegion(ChangeEventArgs e)
+    {
+        filterCountryList = countriesList.Where(country => country.region.Contains((string)e.Value, StringComparison.OrdinalIgnoreCase)).ToList();
     }
 }
