@@ -12,7 +12,7 @@ public class RESTConuntriesServiceV2 : IRESTConuntriesServiceV2
         _httpClient = httpClient;
     }
 
-    public async Task<List<CountreyV2>> GetAllCountries()
+    public async Task<List<CountryV2>> GetAllCountries()
     {
         var request = new HttpRequestMessage(HttpMethod.Get, "/v2/all");
         var response = await _httpClient.SendAsync(request);
@@ -22,7 +22,7 @@ public class RESTConuntriesServiceV2 : IRESTConuntriesServiceV2
             response.EnsureSuccessStatusCode();
 
             using var responseStream = await response.Content.ReadAsStreamAsync();
-            var responsObject = await JsonSerializer.DeserializeAsync<CountreyV2[]>(responseStream);
+            var responsObject = await JsonSerializer.DeserializeAsync<CountryV2[]>(responseStream);
 
             return responsObject.ToList();
         }
@@ -31,6 +31,28 @@ public class RESTConuntriesServiceV2 : IRESTConuntriesServiceV2
             Console.WriteLine(ex.Message);
         }
 
-        return new List<CountreyV2>();
+        return new List<CountryV2>();
+    }
+
+    public async Task<CountryV2> GetCountryByAlphaCode(string alphaCode)
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, $"/v2/alpha/{alphaCode}");
+        var response = await _httpClient.SendAsync(request);
+
+        try
+        {
+            response.EnsureSuccessStatusCode();
+
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+            var responsObject = await JsonSerializer.DeserializeAsync<CountryV2>(responseStream);
+
+            return responsObject;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+
+        return new CountryV2();
     }
 }

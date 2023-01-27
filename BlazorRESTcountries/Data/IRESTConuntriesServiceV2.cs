@@ -4,5 +4,6 @@ namespace BlazorRESTcountries.Data;
 
 public interface IRESTConuntriesServiceV2
 {
-    Task<List<CountreyV2>> GetAllCountries();
+    Task<List<CountryV2>> GetAllCountries();
+    Task<CountryV2> GetCountryByAlphaCode(string alphaCode);
 }

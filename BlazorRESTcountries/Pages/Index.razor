@@ -22,13 +22,13 @@
 <section class="countries-section">
     @foreach (var country in filterCountryList)
     {
-        <article class="countries-section__card element-shadow" @onclick="() => NavigateToCountry(country.name)">
+        <article class="countries-section__card element-shadow" @onclick="() => NavigateToCountry(country.alpha3Code)">
             <img class="countries-section__card-flag" src="@country.flags.png" alt="@country.demonym flag">
             <div class="countries-section__card-info">
                 <h2>@country.name</h2>
-                <p><b>Population:</b> @country.population</p>
-                <p><b>Region:</b> @country.region</p>
-                <p><b>Capital:</b> @country.capital</p>
+                <p><b>Population: </b>@country.population</p>
+                <p><b>Region: </b>@country.region</p>
+                <p><b>Capital: </b>@country.capital</p>
             </div>
         </article>
     }
@@ -37,8 +37,8 @@
 
 @code {
 
-    List<CountreyV2> countriesList = new();
-    List<CountreyV2> filterCountryList = new(); 
+    List<CountryV2> countriesList = new();
+    List<CountryV2> filterCountryList = new(); 
     List<string> regions => countriesList.Select(country => country.region).Distinct().ToList();
 
     protected override async Task OnInitializedAsync()
@@ -46,18 +46,18 @@
        filterCountryList = countriesList = await restCountries.GetAllCountries();
     }
 
-    private void NavigateToCountry (string countryName)
+    private void NavigateToCountry (string alphaCode)
     {
-        NavigationManager.NavigateTo($"country/{countryName}");
+        NavigationManager.NavigateTo($"country/{alphaCode}");
     }
 
     private void SearchCoutry(ChangeEventArgs e)
     {
-        filterCountryList = countriesList.Where(country => country.name.Contains((string)e.Value, StringComparison.OrdinalIgnoreCase)).ToList();
+        filterCountryList = countriesList.Where(country => country.name.Contains(e.Value.ToString(), StringComparison.OrdinalIgnoreCase)).ToList();
     }
 
     private void SelectRegion(ChangeEventArgs e)
     {
-        filterCountryList = countriesList.Where(country => country.region.Contains((string)e.Value, StringComparison.OrdinalIgnoreCase)).ToList();
+        filterCountryList = countriesList.Where(country => country.region.Contains(e.Value.ToString(), StringComparison.OrdinalIgnoreCase)).ToList();
     }
 }

@@ -85,6 +85,7 @@ b {
 .header__logo {
     font-size: clamp(1.2rem, 5vw, 2rem );
     font-weight: 900;
+    cursor: pointer;
 }
 
 .header__toggle-dark-mode {
@@ -120,6 +121,7 @@ b {
 .countries-section__card {
     color: var(--TEXT-COLOUR);
     background-color: var(--ELEMNET-COLOUR);
+    cursor: pointer;
 }
 
 .countries-section__card-flag {

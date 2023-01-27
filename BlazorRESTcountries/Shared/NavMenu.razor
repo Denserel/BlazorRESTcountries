@@ -1,7 +1,8 @@
 ﻿@inject IJSRuntime JS
+@inject NavigationManager NavigationManager
 
 <header class="header">
-    <p class="header__logo">Hello world!</p>
+    <div class="header__logo" @onclick="NavigateHome">Hello world!</div>
     <button @onclick="DarkMode" class="header__toggle-dark-mode" aria-label="toggle dark mode" title="Toggle dark mode">
         <i class="@(darkMode is false ? "fa-solid fa-moon" : "fa-solid fa-sun")"></i>
      </button>
@@ -14,5 +15,10 @@
     {
         await JS.InvokeVoidAsync("darkmode");
         darkMode = !darkMode;
+    }
+
+    private void NavigateHome ()
+    {
+        NavigationManager.NavigateTo("/");
     }
 }

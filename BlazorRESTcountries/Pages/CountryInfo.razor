@@ -1,9 +1,66 @@
-﻿@page "/country/{Country}"
+﻿@page "/country/{AlphaCode}"
+@inject IRESTConuntriesServiceV2 restCountries
+@inject NavigationManager NavigationManager
 
-<h3>@Country</h3>
+
+@if (Country is not null)
+{
+    <article class="country-info">
+        <img class="country-info__flag" src="@Country.flags.png" alt="@Country.demonym flag">
+        <div class="country-info__info">
+            <h2 class="country-info__info-name">@Country.name</h2>
+            <div class="country-info__info-data">
+                <p><b>Native Name: </b> @Country.nativeName</p>
+                <p><b>Population: </b> @Country.population</p>
+                <p><b>Region: </b> @Country.region</p>
+                <p><b>Sub Region: </b> @Country.subregion</p>
+                <p><b>Capital: </b> @Country.capital</p>
+                <p><b>Top Level Domane: </b>@string.Join(", ", Country.topLevelDomain)</p>
+                <p><b>Currencies: </b>@string.Join(", ", Country.currencies.Select(currenci => currenci.name).ToArray())</p>
+                <p><b>Languages: </b>@string.Join(", ", Country.languages.Select(language => language.name).ToArray())</p>
+            </div>
+            <div>
+                @if (CountryBoardersList.Any())
+                {
+                    @foreach (var country in CountryBoardersList)
+                    {
+                        <div @onclick="  () =>  ChangeCountry(country)">@country.name</div>
+                    }
+                }
+            </div>
+        </div>
+    </article>
+}
 
 
 @code {
     [Parameter]
-    public string Country { get; set; }
+    public string AlphaCode { get; set; }
+    private CountryV2 Country { get; set; }
+    private List<CountryV2> CountryBoardersList = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Country = await restCountries.GetCountryByAlphaCode(AlphaCode);
+        await CountryBoarders();
+    }
+
+    private async Task CountryBoarders()
+    {
+        CountryBoardersList.Clear();
+        if (Country.borders is not null)
+        {
+            foreach (var country in Country.borders)
+            {
+                CountryBoardersList.Add(await restCountries.GetCountryByAlphaCode(country));
+            }
+        }
+    }
+
+    private async Task ChangeCountry (CountryV2 country)
+    {
+        Country = country;
+        await CountryBoarders();
+        NavigationManager.NavigateTo($"country/{country.alpha3Code}"); 
+    }
 }

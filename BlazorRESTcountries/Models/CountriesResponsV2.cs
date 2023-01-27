@@ -3,10 +3,10 @@
 
 public class CountriesResponsV2
 {
-    public CountreyV2[] countries { get; set; }
+    public CountryV2[] countries { get; set; }
 }
 
-public class CountreyV2
+public class CountryV2
 {
     public string name { get; set; }
     public string[] topLevelDomain { get; set; }
