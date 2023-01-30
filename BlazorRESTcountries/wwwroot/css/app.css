@@ -49,6 +49,8 @@ body {
     color: var(--TEXT-COLOUR);
 }
 
+
+
 .dark-mode {
     --BACKGROUND-COLOUR: hsla(207, 26%, 17%, 1);
     --TEXT-COLOUR: hsla(0, 0%, 100%, 1);
@@ -141,8 +143,6 @@ b {
     .countries-section__card-info p {
         margin-bottom: .3rem;
     }
-
-
 
 /* Country info page*/
 
