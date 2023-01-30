@@ -11,8 +11,7 @@
 
 img {
     display: block;
-    width: 100%;
-    height: auto;
+    max-width: 100%;
 }
 
 input,
@@ -101,8 +100,9 @@ b {
     flex-direction: column;
     padding: 1rem;
 }
-    .filter-section input, 
-    .filter-section select{
+
+    .filter-section input,
+    .filter-section select {
         padding: 1rem;
     }
 
@@ -126,6 +126,7 @@ b {
 
 .countries-section__card-flag {
     height: clamp(180px, 45vw, 200px);
+    width: 100%
 }
 
 .countries-section__card-info {
@@ -142,6 +143,59 @@ b {
     }
 
 
+
+/* Country info page*/
+
+.country-info,
+.country-info__data,
+.country-info__data-text,
+.country-info__data-boarders {
+    display: flex;
+    flex-direction: column;
+}
+
+.country-info {
+    --SPACING: 2rem;
+    align-items: flex-start;
+    gap: var(--SPACING);
+    padding: var(--SPACING);
+}
+
+.country-info__flag {
+   
+}
+
+.country-info__data {
+    gap: var(--SPACING);
+}
+
+
+.country-info__data-text {
+    gap: var(--SPACING);
+}
+
+    .country-info__data-text p {
+        margin-bottom: 1rem;
+    }
+
+.country-info__data-boarders {
+    gap: 1rem;
+}
+
+.country-info__data-boarders-butttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+    .country-info__data-boarders-butttons button {
+        padding: .5rem;
+        cursor: pointer;
+    }
+
+
+/* Media Queries */
+
 @media screen and (min-width: 720px) {
     .filter-section {
         flex-direction: row;
@@ -154,15 +208,28 @@ b {
         }
 
     .countries-section {
-        
         grid-template-columns: repeat(2, minmax(257px, 320px));
-        
+    }
+
+    .country-info,
+    .country-info__data-text,
+    .country-info__data-boarders {
+        flex-direction: row;
+    }
+
+    .country-info{
+        align-items:center;
     }
 }
 
 @media screen and (min-width: 1080px) {
     .countries-section {
         grid-template-columns: repeat(3, minmax(257px, 320px));
+    }
+
+    .country-info__flag,
+    .country-info__data {
+        flex: 1;
     }
 }
 

@@ -7,25 +7,32 @@
 {
     <article class="country-info">
         <img class="country-info__flag" src="@Country.flags.png" alt="@Country.demonym flag">
-        <div class="country-info__info">
-            <h2 class="country-info__info-name">@Country.name</h2>
-            <div class="country-info__info-data">
-                <p><b>Native Name: </b> @Country.nativeName</p>
-                <p><b>Population: </b> @Country.population</p>
-                <p><b>Region: </b> @Country.region</p>
-                <p><b>Sub Region: </b> @Country.subregion</p>
-                <p><b>Capital: </b> @Country.capital</p>
-                <p><b>Top Level Domane: </b>@string.Join(", ", Country.topLevelDomain)</p>
-                <p><b>Currencies: </b>@string.Join(", ", Country.currencies.Select(currenci => currenci.name).ToArray())</p>
-                <p><b>Languages: </b>@string.Join(", ", Country.languages.Select(language => language.name).ToArray())</p>
+        <div class="country-info__data">
+            <h2 class="country-info__data-name">@Country.name</h2>
+            <div class="country-info__data-text">
+                <div>
+                    <p><b>Native Name: </b> @Country.nativeName</p>
+                    <p><b>Population: </b> @Country.population</p>
+                    <p><b>Region: </b> @Country.region</p>
+                    <p><b>Sub Region: </b> @Country.subregion</p>
+                    <p><b>Capital: </b> @Country.capital</p>
+                </div>
+                <div>
+                    <p><b>Top Level Domane: </b>@string.Join(", ", Country.topLevelDomain)</p>
+                    <p><b>Currencies: </b>@string.Join(", ", Country.currencies.Select(currenci => currenci.name).ToArray())</p>
+                    <p><b>Languages: </b>@string.Join(", ", Country.languages.Select(language => language.name).ToArray())</p>
+                </div>
             </div>
-            <div>
+            <div class="country-info__data-boarders">
                 @if (CountryBoardersList.Any())
                 {
-                    @foreach (var country in CountryBoardersList)
-                    {
-                        <div @onclick="  () =>  ChangeCountry(country)">@country.name</div>
-                    }
+                    <p><b>Border Countries: </b></p>
+                    <div class="country-info__data-boarders-butttons">
+                        @foreach (var country in CountryBoardersList)
+                        {
+                            <button class="element-shadow" type="button" @onclick="  () =>  ChangeCountry(country)">@country.name</button>
+                        }
+                    </div>
                 }
             </div>
         </div>
@@ -57,10 +64,10 @@
         }
     }
 
-    private async Task ChangeCountry (CountryV2 country)
+    private async Task ChangeCountry(CountryV2 country)
     {
         Country = country;
         await CountryBoarders();
-        NavigationManager.NavigateTo($"country/{country.alpha3Code}"); 
+        NavigationManager.NavigateTo($"country/{country.alpha3Code}");
     }
 }
