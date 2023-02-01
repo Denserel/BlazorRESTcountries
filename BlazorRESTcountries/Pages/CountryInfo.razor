@@ -68,8 +68,10 @@ else
         }
     }
 
-    private void ChangeCountry(CountryV2 country)
+    private async Task ChangeCountry(CountryV2 country)
     {
-        NavigationManager.NavigateTo($"country/{country.alpha3Code}", true);
+        Country = country;
+        await CountryBoarders();
+        NavigationManager.NavigateTo($"country/{country.alpha3Code}");
     }
 }
