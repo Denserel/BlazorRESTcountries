@@ -72,6 +72,29 @@ b {
     box-shadow: 0px 2px 8px 1px var(--SHADOW-COLOUR);
 }
 
+/* LOADING INDICATOR */
+.spinner {
+    border: 14px solid var(--ELEMNET-COLOUR);
+    border-top: 14px solid var(--TEXT-COLOUR);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 700ms linear infinite;
+    top: 40%;
+    left: 55%;
+    position: absolute;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
 /* HEADER */
 .header {
     display: flex;
@@ -235,29 +258,6 @@ b {
 @media screen and (min-width: 1400px) {
     .countries-section {
         grid-template-columns: repeat(4, minmax(257px, 320px));
-    }
-}
-
-/* LOADING INDICATOR */
-.spinner {
-    border: 16px solid silver;
-    border-top: 16px solid #337AB7;
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
-    animation: spin 700ms linear infinite;
-    top: 40%;
-    left: 55%;
-    position: absolute;
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg)
-    }
-
-    100% {
-        transform: rotate(360deg)
     }
 }
 
