@@ -218,7 +218,7 @@ b {
 
 /* Media Queries */
 
-@media screen and (min-width: 720px) {
+@media only screen and (min-width: 720px) {
     .filter-section {
         flex-direction: row;
         justify-content: space-between;
@@ -244,7 +244,7 @@ b {
     }
 }
 
-@media screen and (min-width: 1080px) {
+@media only screen and (min-width: 1080px) {
     .countries-section {
         grid-template-columns: repeat(3, minmax(257px, 320px));
     }
@@ -255,7 +255,7 @@ b {
     }
 }
 
-@media screen and (min-width: 1400px) {
+@media only screen and (min-width: 1400px) {
     .countries-section {
         grid-template-columns: repeat(4, minmax(257px, 320px));
     }
