@@ -38,6 +38,10 @@
         </div>
     </article>
 }
+else
+{
+    <p>Loading content</p>
+}
 
 
 @code {
@@ -64,10 +68,8 @@
         }
     }
 
-    private async Task ChangeCountry(CountryV2 country)
+    private void ChangeCountry(CountryV2 country)
     {
-        Country = country;
-        await CountryBoarders();
-        NavigationManager.NavigateTo($"country/{country.alpha3Code}");
+        NavigationManager.NavigateTo($"country/{country.alpha3Code}", true);
     }
 }

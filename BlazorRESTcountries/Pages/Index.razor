@@ -11,35 +11,48 @@
     <select class="element-shadow" 
             title="Filter by region"
             @onchange="SelectRegion">
-        <option value="" selected>Filter by region</option>
-        @foreach (var regoin in regions)
+        @if (regions.Any())
         {
-            <option value="@regoin">@regoin</option>
+            <option value="" selected>Filter by region</option>
+            @foreach (var regoin in regions)
+            {
+                <option value="@regoin">@regoin</option>
+            }
+        }
+        else
+        {
+            <option value="" disabled selected>Loading...</option>
         }
     </select>
 </section>
 
-<section class="countries-section">
-    @foreach (var country in filterCountryList)
-    {
-        <article class="countries-section__card element-shadow" @onclick="() => NavigateToCountry(country.alpha3Code)">
-            <img class="countries-section__card-flag" src="@country.flags.png" alt="@country.demonym flag">
-            <div class="countries-section__card-info">
-                <h2>@country.name</h2>
-                <p><b>Population: </b>@country.population</p>
-                <p><b>Region: </b>@country.region</p>
-                <p><b>Capital: </b>@country.capital</p>
-            </div>
-        </article>
-    }
-</section>
+@if (filterCountryList.Any())
+{
+    <section class="countries-section">
+        @foreach (var country in filterCountryList)
+        {
+            <article class="countries-section__card element-shadow" @onclick="() => NavigateToCountry(country.alpha3Code)">
+                <img class="countries-section__card-flag" src="@country.flags.png" alt="@country.demonym flag">
+                <div class="countries-section__card-info">
+                    <h2>@country.name</h2>
+                    <p><b>Population: </b>@country.population</p>
+                    <p><b>Region: </b>@country.region</p>
+                    <p><b>Capital: </b>@country.capital</p>
+                </div>
+            </article>
+        }
+    </section>
+}
+else
+{
+    <p>Loading content</p>
+}
 
 
 @code {
-
     List<CountryV2> countriesList = new();
-    List<CountryV2> filterCountryList = new(); 
-    List<string> regions => countriesList.Select(country => country.region).Distinct().ToList();
+    List<CountryV2> filterCountryList = new();
+    List<string> regions => countriesList.Any() ? countriesList.Select(country => country.region).Distinct().ToList() : new();
 
     protected override async Task OnInitializedAsync()
     {

@@ -49,8 +49,6 @@ body {
     color: var(--TEXT-COLOUR);
 }
 
-
-
 .dark-mode {
     --BACKGROUND-COLOUR: hsla(207, 26%, 17%, 1);
     --TEXT-COLOUR: hsla(0, 0%, 100%, 1);
@@ -68,6 +66,8 @@ b {
     font-weight: 600;
 }
 
+/* REUSABLE */
+
 .element-shadow {
     box-shadow: 0px 2px 8px 1px var(--SHADOW-COLOUR);
 }
@@ -78,7 +78,6 @@ b {
     align-items: center;
     justify-content: space-between;
     padding: 1.5rem 1rem;
-    margin: 0 0 1rem 0;
     box-shadow: 0px 2px 5px var(--SHADOW-COLOUR);
     background-color: var(--ELEMNET-COLOUR);
 }
@@ -144,7 +143,7 @@ b {
         margin-bottom: .3rem;
     }
 
-/* Country info page*/
+/* Country info page */
 
 .country-info,
 .country-info__data,
