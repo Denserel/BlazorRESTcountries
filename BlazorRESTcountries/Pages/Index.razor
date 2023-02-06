@@ -32,7 +32,7 @@
         @foreach (var country in filterCountryList)
         {
             <article class="countries-section__card element-shadow" @onclick="() => NavigateToCountry(country.alpha3Code)">
-                <img class="countries-section__card-flag" src="@country.flags.png" alt="@country.demonym flag">
+                <img loading="lazy" class="countries-section__card-flag" src="@country.flags.png" alt="@country.demonym flag">
                 <div class="countries-section__card-info">
                     <h2>@country.name</h2>
                     <p><b>Population: </b>@country.population</p>

@@ -1,0 +1,37 @@
+﻿@inherits TestContext
+
+@code {
+    public IndexTest()
+    {
+        Services.AddMockHttpClient();
+        Services.AddScoped<IRESTConuntriesServiceV2, RESTConuntriesServiceV2>();
+    }
+
+    [Fact]
+    public void FilterSectionRndersAsExpectedOnRegionListWithoutContent()
+    {
+        var cut = RenderComponent<BlazorRESTcountries.Pages.Index>();
+
+        cut.Find(".filter-section").MarkupMatches(
+    @<text>
+        <section class="filter-section">
+            <input class="element-shadow"
+                   type="search"
+                   placeholder="Search for a country..." />
+            <select class="element-shadow"
+                    title="Filter by region">
+                <option value="" disabled selected>Loading...</option>
+            </select>
+        </section>
+        </text>
+    );
+    }
+
+    [Fact]
+    public void LoadingIndicatorLoadsOnFilterCountryListWithoutContent()
+    {
+        var cut = RenderComponent<BlazorRESTcountries.Pages.Index>();
+
+        cut.Find(".spinner").MarkupMatches(@<div class="spinner"></div>);
+    }
+}
