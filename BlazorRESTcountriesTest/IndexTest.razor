@@ -3,13 +3,16 @@
 @code {
     public IndexTest()
     {
-        Services.AddMockHttpClient();
-        Services.AddScoped<IRESTConuntriesServiceV2, RESTConuntriesServiceV2>();
     }
 
     [Fact]
-    public void FilterSectionRndersAsExpectedOnRegionListWithoutContent()
+    public void FilterSectionRndersAsExpectedWhenRegionListWithoutContent()
     {
+        var mockRestCountries = new Mock<IRESTConuntriesServiceV2>();
+
+        mockRestCountries.Setup(restCountries => restCountries.GetAllCountries()).ReturnsAsync(CountryV2.BogusCountry.Generate(0));
+        Services.AddSingleton<IRESTConuntriesServiceV2>(mockRestCountries.Object);
+
         var cut = RenderComponent<BlazorRESTcountries.Pages.Index>();
 
         cut.Find(".filter-section").MarkupMatches(
@@ -23,15 +26,61 @@
                 <option value="" disabled selected>Loading...</option>
             </select>
         </section>
-        </text>
+    </text>
+    );
+    }
+
+    [Fact]
+    public void FilterSectionRndersAsExpectedWhenFilterCountryListisPopulated()
+    {
+        var mockRestCountries = new Mock<IRESTConuntriesServiceV2>();
+        var bogusCountry = CountryV2.BogusCountry.Generate(1);
+
+        mockRestCountries.Setup(restCountries => restCountries.GetAllCountries()).ReturnsAsync(bogusCountry);
+        Services.AddSingleton<IRESTConuntriesServiceV2>(mockRestCountries.Object);
+
+        var cut = RenderComponent<BlazorRESTcountries.Pages.Index>();
+
+        cut.Find(".filter-section").MarkupMatches(
+    @<text>
+        <section class="filter-section">
+            <input class="element-shadow"
+                   type="search"
+                   placeholder="Search for a country..." />
+            <select class="element-shadow"
+                    title="Filter by region">
+                <option value="" selected>Filter by region</option>
+                <option value="@bogusCountry[0].region">@bogusCountry[0].region</option>
+            </select>
+        </section>
+    </text>
     );
     }
 
     [Fact]
     public void LoadingIndicatorLoadsOnFilterCountryListWithoutContent()
     {
+        var mockRestCountries = new Mock<IRESTConuntriesServiceV2>();
+
+        mockRestCountries.Setup(restCountries => restCountries.GetAllCountries()).ReturnsAsync(CountryV2.BogusCountry.Generate(0));
+        Services.AddSingleton<IRESTConuntriesServiceV2>(mockRestCountries.Object);
+
         var cut = RenderComponent<BlazorRESTcountries.Pages.Index>();
 
         cut.Find(".spinner").MarkupMatches(@<div class="spinner"></div>);
+    }
+
+    [Fact]
+    public void CountriesSectionLoadsWhenFilterCountryListIsPopulated()
+    {
+        var mockRestCountries = new Mock<IRESTConuntriesServiceV2>();
+        var bogusCountry = CountryV2.BogusCountry.Generate(1);
+
+        mockRestCountries.Setup(restCountries => restCountries.GetAllCountries()).ReturnsAsync(bogusCountry);
+        Services.AddSingleton<IRESTConuntriesServiceV2>(mockRestCountries.Object);
+
+        var cut = RenderComponent<BlazorRESTcountries.Pages.Index>();
+
+        cut.Find(".countries-section");
     }
 }
