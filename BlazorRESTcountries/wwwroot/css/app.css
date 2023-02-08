@@ -32,7 +32,6 @@ li {
 }
 
 /* VARIABLES */
-
 :root {
     /* Font and Topography */
     --FONT-FAMELY: 'Nunito Sans', sans-serif;
@@ -57,7 +56,7 @@ body {
 }
 
 button, input, select {
-    border: none;
+    border-color: transparent;
     color: var(--TEXT-COLOUR);
     background-color: var(--ELEMNET-COLOUR);
 }
@@ -67,7 +66,6 @@ b {
 }
 
 /* REUSABLE */
-
 .element-shadow {
     box-shadow: 0px 2px 8px 1px var(--SHADOW-COLOUR);
 }
@@ -117,7 +115,6 @@ b {
 }
 
 /* INDEX */
-
 .filter-section {
     display: flex;
     gap: 2rem;
@@ -138,7 +135,7 @@ b {
     display: grid;
     gap: 3rem;
     justify-content: center;
-    grid-template-columns: repeat(1, minmax(257px, 320px));
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
     padding: 4rem;
 }
 
@@ -167,7 +164,6 @@ b {
     }
 
 /* Country info page */
-
 .country-info,
 .country-info__data,
 .country-info__data-text,
@@ -229,10 +225,6 @@ b {
             width: auto;
         }
 
-    .countries-section {
-        grid-template-columns: repeat(2, minmax(257px, 320px));
-    }
-
     .country-info,
     .country-info__data-text,
     .country-info__data-boarders {
@@ -245,10 +237,6 @@ b {
 }
 
 @media only screen and (min-width: 1080px) {
-    .countries-section {
-        grid-template-columns: repeat(3, minmax(257px, 320px));
-    }
-
     .country-info__flag,
     .country-info__data {
         flex: 1;
@@ -256,9 +244,6 @@ b {
 }
 
 @media only screen and (min-width: 1400px) {
-    .countries-section {
-        grid-template-columns: repeat(4, minmax(257px, 320px));
-    }
 }
 
 /* Blasor stuff */

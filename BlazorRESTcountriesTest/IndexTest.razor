@@ -26,7 +26,7 @@
                 <option value="" disabled selected>Loading...</option>
             </select>
         </section>
-    </text>
+        </text>
     );
     }
 
@@ -34,14 +34,15 @@
     public void FilterSectionRndersAsExpectedWhenFilterCountryListisPopulated()
     {
         var mockRestCountries = new Mock<IRESTConuntriesServiceV2>();
-        var bogusCountry = CountryV2.BogusCountry.Generate(1);
+        var bogusCountries = CountryV2.BogusCountry.Generate(1);
+        var regions = bogusCountries.Select(country => country.region).Distinct().ToList();
 
-        mockRestCountries.Setup(restCountries => restCountries.GetAllCountries()).ReturnsAsync(bogusCountry);
+        mockRestCountries.Setup(restCountries => restCountries.GetAllCountries()).ReturnsAsync(bogusCountries);
         Services.AddSingleton<IRESTConuntriesServiceV2>(mockRestCountries.Object);
 
         var cut = RenderComponent<BlazorRESTcountries.Pages.Index>();
 
-        cut.Find(".filter-section").MarkupMatches(
+        cut.WaitForElement(".filter-section").MarkupMatches(
     @<text>
         <section class="filter-section">
             <input class="element-shadow"
@@ -50,7 +51,10 @@
             <select class="element-shadow"
                     title="Filter by region">
                 <option value="" selected>Filter by region</option>
-                <option value="@bogusCountry[0].region">@bogusCountry[0].region</option>
+                @foreach (var regoin in regions)
+                {
+                    <option value="@regoin">@regoin</option>
+                }
             </select>
         </section>
     </text>
@@ -74,13 +78,30 @@
     public void CountriesSectionLoadsWhenFilterCountryListIsPopulated()
     {
         var mockRestCountries = new Mock<IRESTConuntriesServiceV2>();
-        var bogusCountry = CountryV2.BogusCountry.Generate(1);
+        var bogusCountries = CountryV2.BogusCountry.Generate(1);
 
-        mockRestCountries.Setup(restCountries => restCountries.GetAllCountries()).ReturnsAsync(bogusCountry);
+        mockRestCountries.Setup(restCountries => restCountries.GetAllCountries()).ReturnsAsync(bogusCountries);
         Services.AddSingleton<IRESTConuntriesServiceV2>(mockRestCountries.Object);
 
         var cut = RenderComponent<BlazorRESTcountries.Pages.Index>();
 
-        cut.Find(".countries-section");
+        cut.WaitForElement(".countries-section").MarkupMatches(
+    @<text>
+        <section class="countries-section">
+            @foreach (var country in bogusCountries)
+            {
+                <article class="countries-section__card element-shadow">
+                    <img loading="lazy" class="countries-section__card-flag" src="@country.flags.png" alt="@country.demonym flag">
+                    <div class="countries-section__card-info">
+                        <h2>@country.name</h2>
+                        <p><b>Population: </b>@country.population</p>
+                        <p><b>Region: </b>@country.region</p>
+                        <p><b>Capital: </b>@country.capital</p>
+                    </div>
+                </article>
+            }
+        </section>
+    </text>
+        );
     }
 }
