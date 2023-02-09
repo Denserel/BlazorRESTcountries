@@ -1,0 +1,37 @@
+﻿@inherits TestContext
+
+@code {
+    public CountryInfoTest()
+    {
+
+    }
+
+    [Fact]
+    public void CountryInfoLoadsAsExpectedWhenCountryIsNull()
+    {
+        var mockRestCountries = new Mock<IRESTConuntriesServiceV2>();
+        var bogusCountry = CountryV2.BogusCountry.Generate();
+
+        mockRestCountries.Setup(restCountries => restCountries.GetCountryByAlphaCode("")).ReturnsAsync(new CountryV2());
+        Services.AddSingleton<IRESTConuntriesServiceV2>(mockRestCountries.Object);
+
+        var cut = RenderComponent<CountryInfo>(parameeter => parameeter.Add(p => p.AlphaCode, ""));
+
+        cut.Find(".spinner").MarkupMatches(@<div class="spinner"></div>);
+    }
+
+    [Fact (Skip = "TODO")]
+    public void Test()
+    {
+        var mockRestCountries = new Mock<IRESTConuntriesServiceV2>();
+        var bogusCountries = CountryV2.BogusCountry.Generate(3);
+
+        mockRestCountries.Setup(restCountries => restCountries.GetCountryByAlphaCode(bogusCountries[0].alpha3Code)).ReturnsAsync(bogusCountries[0]);
+        Services.AddSingleton<IRESTConuntriesServiceV2>(mockRestCountries.Object);
+        
+
+        var cut = RenderComponent<CountryInfo>(parameeter => parameeter.Add(p => p.AlphaCode, bogusCountries[0].alpha3Code));
+
+        
+    }
+}

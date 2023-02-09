@@ -3,7 +3,7 @@
 @inject NavigationManager NavigationManager
 
 
-@if (Country is not null)
+@if (Country.alpha3Code is not null)
 {
     <article class="country-info">
         <img class="country-info__flag" src="@Country.flags.png" alt="@Country.demonym flag">
@@ -47,7 +47,7 @@ else
 @code {
     [Parameter]
     public string AlphaCode { get; set; }
-    private CountryV2 Country { get; set; }
+    private CountryV2 Country { get; set; } = new ();
     private List<CountryV2> CountryBoardersList = new();
 
     protected override async Task OnInitializedAsync()
@@ -58,7 +58,6 @@ else
 
     private async Task CountryBoarders()
     {
-        CountryBoardersList.Clear();
         if (Country.borders is not null)
         {
             foreach (var country in Country.borders)
@@ -71,6 +70,7 @@ else
     private async Task ChangeCountry(CountryV2 country)
     {
         Country = country;
+        CountryBoardersList.Clear();
         await CountryBoarders();
         NavigationManager.NavigateTo($"country/{country.alpha3Code}");
     }

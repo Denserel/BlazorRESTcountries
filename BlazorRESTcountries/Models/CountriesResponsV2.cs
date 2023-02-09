@@ -56,7 +56,7 @@ public class CountryV2
             .RuleFor(country => country.area, fake => fake.Random.Float(100f, 9999999f))
             .RuleFor(country => country.gini, fake => fake.Random.Float(1f, 100f))
             .RuleFor(country => country.timezones, fake => fake.Random.WordsArray(3))
-            .RuleFor(country => country.borders, fake => fake.Random.WordsArray(7))
+            .RuleFor(country => country.borders, fake => fake.Random.WordsArray(2))
             .RuleFor(country => country.nativeName, fake => fake.Address.Country())
             .RuleFor(country => country.numericCode, fake => fake.Random.Number(999).ToString())
             .RuleFor(country => country.flags, fake => Flags.BogusFlags.Generate())
