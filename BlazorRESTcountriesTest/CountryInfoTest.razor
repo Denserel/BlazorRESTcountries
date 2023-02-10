@@ -20,18 +20,55 @@
         cut.Find(".spinner").MarkupMatches(@<div class="spinner"></div>);
     }
 
-    [Fact (Skip = "TODO")]
-    public void Test()
+    [Fact]
+    public void CountryInfoLoadsAsExpectedWhenCountryIsPopulated()
     {
         var mockRestCountries = new Mock<IRESTConuntriesServiceV2>();
         var bogusCountries = CountryV2.BogusCountry.Generate(3);
+        List<CountryV2> bogusCountriesBordersList = bogusCountries.ToList();
+        bogusCountriesBordersList.RemoveAt(0);
 
-        mockRestCountries.Setup(restCountries => restCountries.GetCountryByAlphaCode(bogusCountries[0].alpha3Code)).ReturnsAsync(bogusCountries[0]);
+        mockRestCountries.SetupSequence(restCotries => restCotries.GetCountryByAlphaCode(It.IsAny<string>()))
+            .ReturnsAsync(bogusCountries[0])
+            .ReturnsAsync(bogusCountries[1])
+            .ReturnsAsync(bogusCountries[2]);
         Services.AddSingleton<IRESTConuntriesServiceV2>(mockRestCountries.Object);
-        
+
 
         var cut = RenderComponent<CountryInfo>(parameeter => parameeter.Add(p => p.AlphaCode, bogusCountries[0].alpha3Code));
 
-        
+        cut.WaitForElement(".country-info").MarkupMatches(
+    @<text>
+        <article class="country-info">
+            <img class="country-info__flag" src="@bogusCountries[0].flags.png" alt="@bogusCountries[0].demonym flag">
+            <div class="country-info__data">
+                <h2 class="country-info__data-name">@bogusCountries[0].name</h2>
+                <div class="country-info__data-text">
+                    <div>
+                        <p><b>Native Name: </b> @bogusCountries[0].nativeName</p>
+                        <p><b>Population: </b> @bogusCountries[0].population</p>
+                        <p><b>Region: </b> @bogusCountries[0].region</p>
+                        <p><b>Sub Region: </b> @bogusCountries[0].subregion</p>
+                        <p><b>Capital: </b> @bogusCountries[0].capital</p>
+                    </div>
+                    <div>
+                        <p><b>Top Level Domane: </b>@string.Join(", ", bogusCountries[0].topLevelDomain)</p>
+                        <p><b>Currencies: </b>@string.Join(", ", bogusCountries[0].currencies.Select(currenci => currenci.name).ToArray())</p>
+                        <p><b>Languages: </b>@string.Join(", ", bogusCountries[0].languages.Select(language => language.name).ToArray())</p>
+                    </div>
+                </div>
+                <div class="country-info__data-boarders">
+                    <p><b>Border Countries: </b></p>
+                    <div class="country-info__data-boarders-butttons">
+                        @foreach (var country in bogusCountriesBordersList)
+                            {
+                                <button class="element-shadow" type="button">@country.name</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </text>
+        );
     }
 }
