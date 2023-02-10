@@ -11,16 +11,16 @@
             <h2 class="country-info__data-name">@Country.name</h2>
             <div class="country-info__data-text">
                 <div>
-                    <p><b>Native Name: </b> @Country.nativeName</p>
-                    <p><b>Population: </b> @Country.population</p>
-                    <p><b>Region: </b> @Country.region</p>
-                    <p><b>Sub Region: </b> @Country.subregion</p>
-                    <p><b>Capital: </b> @Country.capital</p>
+                    <p><b>Native Name: </b> @(Country.nativeName ?? "N/A")</p>
+                    <p><b>Population: </b> @(Country.population)</p>
+                    <p><b>Region: </b> @(Country.region ?? "N/A")</p>
+                    <p><b>Sub Region: </b> @(Country.subregion ?? "N/A") </p>
+                    <p><b>Capital: </b> @(Country.capital ?? "N/A")</p>
                 </div>
                 <div>
-                    <p><b>Top Level Domane: </b>@string.Join(", ", Country.topLevelDomain)</p>
-                    <p><b>Currencies: </b>@string.Join(", ", Country.currencies.Select(currenci => currenci.name).ToArray())</p>
-                    <p><b>Languages: </b>@string.Join(", ", Country.languages.Select(language => language.name).ToArray())</p>
+                    <p><b>Top Level Domane: </b>@string.Join(", ", Country.topLevelDomain ?? new [] {"N/A"})</p>
+                    <p><b>Currencies: </b>@string.Join(", ", Country.currencies is null ? new [] {"N/A"} : Country.currencies.Select(currenci => currenci.name).ToArray())</p>
+                    <p><b>Languages: </b>@string.Join(", ", Country.languages is null ? new [] {"N/A"} : Country.languages.Select(language => language.name).ToArray())</p>
                 </div>
             </div>
             <div class="country-info__data-boarders">
