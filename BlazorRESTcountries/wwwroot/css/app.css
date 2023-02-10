@@ -135,7 +135,7 @@ b {
     display: grid;
     gap: 3rem;
     justify-content: center;
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 19rem));
     padding: 4rem;
 }
 
