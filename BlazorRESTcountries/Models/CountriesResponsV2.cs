@@ -39,8 +39,7 @@ public class CountryV2
     public string cioc { get; set; }
     public bool independent { get; set; }
 
-    public static Faker<CountryV2> BogusCountry { get; } =
-        new Faker<CountryV2>()
+    public static Faker<CountryV2> BogusCountry { get; } = new Faker<CountryV2>()
             .RuleFor(country => country.name, fake => fake.Address.Country())
             .RuleFor(country => country.topLevelDomain, fake => new[] { fake.Internet.DomainSuffix() })
             .RuleFor(country => country.alpha2Code, fake => fake.Address.CountryCode(Iso3166Format.Alpha2))
@@ -64,7 +63,7 @@ public class CountryV2
             .RuleFor(country => country.languages, fake => Language.BobusLanguage.GenerateBetween(1, 2).ToArray())
             .RuleFor(country => country.translations, fake => Translations.BogusTranslation.Generate())
             .RuleFor(country => country.flag, fake => fake.Image.DataUri(200, 200))
-            .RuleFor(country => country.regionalBlocs, fake => Regionalbloc.BogusRegionalbloc.GenerateBetween(1,2).ToArray())
+            .RuleFor(country => country.regionalBlocs, fake => Regionalbloc.BogusRegionalbloc.GenerateBetween(1, 2).ToArray())
             .RuleFor(country => country.cioc, fake => fake.Address.CountryCode(Iso3166Format.Alpha2))
             .RuleFor(country => country.independent, fake => fake.Random.Bool());
 }
@@ -74,7 +73,7 @@ public class Flags
     public string svg { get; set; }
     public string png { get; set; }
 
-    public static Faker<Flags> BogusFlags { get; } = 
+    public static Faker<Flags> BogusFlags { get; } =
         new Faker<Flags>()
         .RuleFor(flag => flag.svg, fake => fake.Image.DataUri(200, 200))
         .RuleFor(flag => flag.png, fake => fake.Image.DataUri(200, 200));
@@ -94,8 +93,7 @@ public class Translations
     public string it { get; set; }
     public string hu { get; set; }
 
-    public static Faker<Translations> BogusTranslation { get; } =
-        new Faker<Translations>()
+    public static Faker<Translations> BogusTranslation { get; } = new Faker<Translations>()
             .RuleFor(translation => translation.br, fake => fake.Random.String())
             .RuleFor(translation => translation.pt, fake => fake.Random.String())
             .RuleFor(translation => translation.nl, fake => fake.Random.String())
@@ -115,8 +113,7 @@ public class Currency
     public string name { get; set; }
     public string symbol { get; set; }
 
-    public static Faker<Currency> BobusCurrency { get; } =
-        new Faker<Currency>()
+    public static Faker<Currency> BobusCurrency { get; } = new Faker<Currency>()
             .RuleFor(currancy => currancy.code, fake => fake.Finance.Currency().Code)
             .RuleFor(currancy => currancy.name, fake => fake.Finance.Currency().Description)
             .RuleFor(currancy => currancy.symbol, fake => fake.Finance.Currency().Symbol);
@@ -129,8 +126,7 @@ public class Language
     public string name { get; set; }
     public string nativeName { get; set; }
 
-    public static Faker<Language> BobusLanguage { get; } =
-        new Faker<Language>()
+    public static Faker<Language> BobusLanguage { get; } = new Faker<Language>()
             .RuleFor(language => language.iso639_1, fake => fake.Address.CountryCode(Iso3166Format.Alpha2))
             .RuleFor(language => language.iso639_2, fake => fake.Address.CountryCode(Iso3166Format.Alpha3))
             .RuleFor(language => language.name, fake => fake.Address.Country())
@@ -142,8 +138,7 @@ public class Regionalbloc
     public string acronym { get; set; }
     public string name { get; set; }
 
-    public static Faker<Regionalbloc> BogusRegionalbloc { get; } =
-        new Faker<Regionalbloc>()
+    public static Faker<Regionalbloc> BogusRegionalbloc { get; } = new Faker<Regionalbloc>()
             .RuleFor(region => region.acronym, fake => fake.Random.String())
             .RuleFor(region => region.name, fake => fake.Random.String());
 

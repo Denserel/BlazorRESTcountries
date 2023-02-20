@@ -37,7 +37,7 @@
                     <h2>@country.name</h2>
                     <p><b>Population: </b>@country.population</p>
                     <p><b>Region: </b>@country.region</p>
-                    <p><b>Capital: </b>@country.capital</p>
+                    <p><b>Capital: </b>@(country.capital ?? "N/A")</p>
                 </div>
             </article>
         }

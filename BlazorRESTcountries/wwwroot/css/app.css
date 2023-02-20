@@ -134,8 +134,8 @@ b {
 .countries-section {
     display: grid;
     gap: 3rem;
-    justify-content: center;
-    grid-template-columns: repeat(auto-fit, minmax(17rem, 19rem));
+    justify-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
     padding: 4rem;
 }
 
