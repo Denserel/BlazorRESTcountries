@@ -101,7 +101,25 @@
                 </article>
             }
         </section>
-    </text>
-        );
+            </text>
+    );
+    }
+
+    [Fact]
+    public void NavigateToExpectedUriOnClick ()
+    {
+        var mockRestCountries = new Mock<IRESTConuntriesServiceV2>();
+        var bogusCountries = CountryV2.BogusCountry.Generate(1);
+
+        mockRestCountries.Setup(restCountries => restCountries.GetAllCountries()).ReturnsAsync(bogusCountries);
+        Services.AddSingleton<IRESTConuntriesServiceV2>(mockRestCountries.Object);
+
+        var navigationManager = Services.GetRequiredService<NavigationManager>();
+
+        var cut = RenderComponent<BlazorRESTcountries.Pages.Index>();
+
+        cut.Find(".countries-section__card").Click();
+
+        Assert.Equal($"http://localhost/country/{bogusCountries[0].alpha3Code}", navigationManager.Uri);
     }
 }
