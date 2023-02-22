@@ -71,4 +71,27 @@
         </text>
         );
     }
+
+    [Fact]
+    public void NavigateToExpectedUriOnClick()
+    {
+        var mockRestCountries = new Mock<IRESTConuntriesServiceV2>();
+        var bogusCountries = CountryV2.BogusCountry.Generate(3);
+
+        mockRestCountries.SetupSequence(restCotries => restCotries.GetCountryByAlphaCode(It.IsAny<string>()))
+            .ReturnsAsync(bogusCountries[0])
+            .ReturnsAsync(bogusCountries[1])
+            .ReturnsAsync(bogusCountries[2])
+            .ReturnsAsync(bogusCountries[1])
+            .ReturnsAsync(bogusCountries[0]);
+        Services.AddSingleton<IRESTConuntriesServiceV2>(mockRestCountries.Object);
+
+        var navigationManager = Services.GetRequiredService<NavigationManager>();
+
+        var cut = RenderComponent<CountryInfo>(parameeter => parameeter.Add(p => p.AlphaCode, bogusCountries[0].alpha3Code));
+
+        cut.Find(".country-info__data-boarders-butttons button").Click();
+
+        Assert.Equal($"http://localhost/country/{bogusCountries[1].alpha3Code}", navigationManager.Uri);
+    }
 }
