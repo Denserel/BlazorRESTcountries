@@ -1,8 +1,7 @@
 name: Build and deploy .NET Core application to Web App BlazorRESTcountries20230117161714
 on:
   push:
-    branches:
-    - master
+    branches: [ main ]
 env:
   AZURE_WEBAPP_NAME: BlazorRESTcountries20230117161714
   AZURE_WEBAPP_PACKAGE_PATH: BlazorRESTcountries\published
